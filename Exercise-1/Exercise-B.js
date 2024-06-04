@@ -1,28 +1,26 @@
-//importamos modulo de lectura de linea(read line)
-const readline =require('readline');
+const { resolve } = require("path");
+const readline = require("readline");
 
-//creamos la interfaz para leer readline
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
+  input: process.stdin,
+  output: process.stdout,
 });
 
-//solicitamos al usuario que ingrese los datos
-rl.question('Ingrese el valor de la compra en COP: ', (input)=>{
-    //convertimos el valor ingresado a un numero
-    const valorCompra= Number(input);
-    //verificamos si la conversion fue exitosa
-    if (isNaN(valorCompra)){
-        console.log("Por favor ingrese un valor numerico valido");  
-    }else {
-        //comparmos el valor de compra      
-        if(valorCompra >=100000){
-        console.log("La compra aplica para el descuento: true");
-    }else{
-        console.log("La compra aplica para el descuento. false");
-    }
- }     
- rl.close();
-});
+const obtenerValorDeCompra = () => {
+  return new Promise((resolve) => {
+    rl.question("Ingrese el valor de la compra: ", (valor) => {
+      resolve({ valor: parseInt(valor) });
+    });
+  });
+};
 
+const descuentoParaCompras = async () => {
+  let = { valor } = await obtenerValorDeCompra();
 
+  let commparacion = valor >= 100000;
+  console.log(`La compra aplica para el descuento: ${commparacion}`);
+
+  rl.close();
+};
+
+descuentoParaCompras();
